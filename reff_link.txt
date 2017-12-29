@@ -1,1 +1,5 @@
 https://www.tutorialspoint.com/python_pandas/python_pandas_dataframe.htm
+
+https://github.com/sandeep-krishnamurthy/MovieSuccessPrediction
+
+http://ataspinar.com/2016/01/21/sentiment-analysis-with-bag-of-words/
