@@ -5,3 +5,7 @@ https://github.com/sandeep-krishnamurthy/MovieSuccessPrediction
 http://ataspinar.com/2016/01/21/sentiment-analysis-with-bag-of-words/
 
 https://www.ranks.nl/stopwords
+
+https://www.tutorialspoint.com/python/python_reg_expressions.htm
+
+https://stackoverflow.com/questions/20297332/python-pandas-dataframe-retrieve-number-of-columns

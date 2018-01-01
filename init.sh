@@ -5,4 +5,3 @@ pip3 install -U scipy
 pip3 install pandas
 pip3 install pytest
 pip3 instal nose
-pip3 install sets
