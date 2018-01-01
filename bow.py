@@ -1,6 +1,10 @@
 import pandas as pd
 import preprocess as PP
 
+# Read test data
+test_df = pd.read_csv(filepath_or_buffer="./Data/Training/part.csv",header=None)
+
+# create table (dataframe)
 BOW_df = pd.DataFrame(columns=['total','positive','negative'])
 
 word_list = set()
