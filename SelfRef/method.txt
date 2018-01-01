@@ -1,0 +1,19 @@
+Methodology:-
+The system works as follows-
+Step 1:- Collect labelled dataset.
+Step 2:- Divide the collected data into training and test dataset(75% training and 25% test dataset).
+Step 3:- Preprocessing on the collected data-
+	3.1:- Tokenization.
+	3.2:- Removal of stop words.
+	3.3:- Remove @ tag and urls.
+	3.4:- Remove punctuation
+	eg- (tweet = re.sub(r'\$\w*','',tweet) # Remove tickers
+   	tweet = re.sub(r'https?:\/\/.*\/\w*','',tweet) # Remove hyperlinks
+   	tweet = re.sub(r'['+string.punctuation+']+', ' ',tweet) # Remove puncutations like 's
+	)
+Step 4:- Prepare the bag of word model from training data.
+Step 5:- Calculate the prior and conditional probabilities.
+Step 5:- Test the classifier using test data.
+Step 6:- Collect the unlabelled dataset.
+Step 7:- Use the classifier to classify the unlabeled dataset.
+	
