@@ -9,3 +9,5 @@ https://www.ranks.nl/stopwords
 https://www.tutorialspoint.com/python/python_reg_expressions.htm
 
 https://stackoverflow.com/questions/20297332/python-pandas-dataframe-retrieve-number-of-columns
+
+https://stackoverflow.com/questions/23240969/python-count-repeated-elements-in-the-list
