@@ -14,12 +14,3 @@ for i in clean_text2:
     clean_text3.add(PP.rem_symbol(i))
 
 print clean_text3
-
-import pandas as pd
-
-df = pd.read_excel("part.xlsx")
-
-for i in df.index :
-    print df.loc[i]['positive']
-
-print df.index
