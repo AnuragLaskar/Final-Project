@@ -13,10 +13,12 @@ stop_words = [x.strip() for x in stop_words]
 test_df = pd.read_csv(filepath_or_buffer="./Data/Training/test.csv",header=None)
 df = pd.read_excel("train_result.xlsx")
 
-result = pd.DataFrame(columns=['Text','Sentiment_pre','Sentiment_cal'])
+result = pd.DataFrame(columns=['Text','Sentiment_pre','Sentiment_cal','Same'])
 
 
 total_test = len(test_df.index)
+
+print "Be Patient...!"
 
 for i in pbar(range(total_test)) :
     
@@ -45,8 +47,16 @@ for i in pbar(range(total_test)) :
         senti = "Positive"
     else:
         senti = "Negative"
-    
-    result.loc[i] = [text,test_df.loc[i][0],senti]
+    flag = 0
+    if (test_df.loc[i][0].lower())==senti.lower():
+        flag = 1
+    result.loc[i] = [text,test_df.loc[i][0],senti,flag]
 
 result.to_excel(excel_writer="test_result.xlsx")
-print result
+
+# print result
+
+acc = (result['Same'].sum() * 100.0) / len(result.index)
+
+print "Total Test Data : %d" % total_test
+print "Accuracy " , acc, " %"
