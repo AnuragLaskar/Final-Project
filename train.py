@@ -1,7 +1,12 @@
+# -*- coding: utf-8 -*-
+
 from __future__ import division
 import pandas as pd
 import preprocess as PP
 import count_prob as CP
+
+from progressbar import ProgressBar
+pbar = ProgressBar()
 
 # read stop word from data and add to stop_words list
 with open("./Data/Classifier/stop-word.txt") as f:
@@ -9,29 +14,33 @@ with open("./Data/Classifier/stop-word.txt") as f:
 stop_words = [x.strip() for x in stop_words]
 
 # Read test data
-test_df = pd.read_csv(filepath_or_buffer="./Data/Training/full_training_dataset.csv",header=None)
-# test_df = pd.read_csv(filepath_or_buffer="./Data/Training/part.csv",header=None)
+# train_df = pd.read_csv(filepath_or_buffer="./Data/Training/full_training_dataset.csv",header=None)
+train_df = pd.read_csv(filepath_or_buffer="./Data/Training/train.csv",header=None)
 
 # create table (dataframe)
-BOW_df = pd.DataFrame(columns=['total','positive','negative','prob_pos','prob_neg','prob_w_p','prob_w_n'])
+BOW_df = pd.DataFrame(columns=['total','positive','negative','prob_w_p','prob_w_n'])
 STOP_df = pd.DataFrame(columns=['count'])
 
 word_list = set()
 
-total_test = len(test_df.index)
-print "Total test : %d" % total_test
+total_test = len(train_df.index)
 
-
+pos_test = 0
+neg_test = 0
 total_token = 0
 
 print "Be Patient...!"
 
-for i in range(total_test):
+for i in pbar(range(total_test)):
     
-    senti = test_df.loc[i][0]
+    senti = train_df.loc[i][0]
     if senti=="neutral":
         continue
-    text = test_df.loc[i][1]
+    elif senti=="positive":
+        pos_test += 1
+    else:
+        neg_test += 1
+    text = train_df.loc[i][1]
 
     text = PP.clean_tweet(text)
     temp_list = text.split(" ")
@@ -52,7 +61,7 @@ for i in range(total_test):
             if word not in word_list:
                 # Add Unique word to the word_list Set and increament the count
                 word_list.add(word)
-                BOW_df.loc[word] = [0,0,0,0,0,0,0]
+                BOW_df.loc[word] = [0,0,0,0,0]
                 BOW_df.loc[word]["total"] += 1
 
             else:
@@ -64,8 +73,8 @@ for i in range(total_test):
             else:
                 BOW_df.loc[word]["negative"] += 1
 
-            BOW_df.loc[word]['prob_pos'] = BOW_df.loc[word]['positive'] / BOW_df.loc[word]['total']
-            BOW_df.loc[word]['prob_neg'] = BOW_df.loc[word]['negative'] / BOW_df.loc[word]['total']
+            # BOW_df.loc[word]['prob_pos'] = BOW_df.loc[word]['positive'] / BOW_df.loc[word]['total']
+            # BOW_df.loc[word]['prob_neg'] = BOW_df.loc[word]['negative'] / BOW_df.loc[word]['total']
         else:
             if word not in STOP_df.index:
                 STOP_df.loc[word]=[0]
@@ -80,16 +89,19 @@ for word in BOW_df.index :
     
 
 
-              
+print "Total Training Data : %d" % total_test
+print "Total Positive Data : %d" % pos_test
+print "Total Negative Data : %d" % neg_test
 print "Total Token : %d" % total_token                
 print "Total Unique Words : %d" % len(word_list)
 print "Total Unique Stop Words : %d" % len(STOP_df.index)
 print "Total Stop Words : %d" % (STOP_df['count'].sum())
 
+
 # print BOW_df
 
 # Write table to Excel File
-BOW_df.to_excel(excel_writer="bow.xlsx")
+BOW_df.to_excel(excel_writer="train_result.xlsx")
 # BOW_df.to_excel(excel_writer="part.xlsx")
 # BOW_df.to_csv(path_or_buf="bb.csv")
 STOP_df.to_excel(excel_writer="stop.xlsx")
