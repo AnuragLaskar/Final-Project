@@ -1,5 +1,7 @@
+from __future__ import division
 import pandas as pd
 import preprocess as PP
+import count_prob as CP
 
 # read stop word from data and add to stop_words list
 with open("./Data/Classifier/stop-word.txt") as f:
@@ -8,9 +10,10 @@ stop_words = [x.strip() for x in stop_words]
 
 # Read test data
 test_df = pd.read_csv(filepath_or_buffer="./Data/Training/full_training_dataset.csv",header=None)
+# test_df = pd.read_csv(filepath_or_buffer="./Data/Training/part.csv",header=None)
 
 # create table (dataframe)
-BOW_df = pd.DataFrame(columns=['total','positive','negative'])
+BOW_df = pd.DataFrame(columns=['total','positive','negative','prob_pos','prob_neg','prob_w_p','prob_w_n'])
 STOP_df = pd.DataFrame(columns=['count'])
 
 word_list = set()
@@ -49,7 +52,7 @@ for i in range(total_test):
             if word not in word_list:
                 # Add Unique word to the word_list Set and increament the count
                 word_list.add(word)
-                BOW_df.loc[word] = [0,0,0]
+                BOW_df.loc[word] = [0,0,0,0,0,0,0]
                 BOW_df.loc[word]["total"] += 1
 
             else:
@@ -60,13 +63,24 @@ for i in range(total_test):
                 BOW_df.loc[word]["positive"] += 1
             else:
                 BOW_df.loc[word]["negative"] += 1
+
+            BOW_df.loc[word]['prob_pos'] = BOW_df.loc[word]['positive'] / BOW_df.loc[word]['total']
+            BOW_df.loc[word]['prob_neg'] = BOW_df.loc[word]['negative'] / BOW_df.loc[word]['total']
         else:
             if word not in STOP_df.index:
                 STOP_df.loc[word]=[0]
                 STOP_df.loc[word]['count'] += 1
             else:
-                STOP_df.loc[word]['count'] += 1             
-                
+                STOP_df.loc[word]['count'] += 1 
+
+
+for word in BOW_df.index :
+    BOW_df.loc[word]['prob_w_p'] = CP.count_prob_pos(word,BOW_df)
+    BOW_df.loc[word]['prob_w_n'] = CP.count_prob_neg(word,BOW_df)
+    
+
+
+              
 print "Total Token : %d" % total_token                
 print "Total Unique Words : %d" % len(word_list)
 print "Total Unique Stop Words : %d" % len(STOP_df.index)
@@ -76,4 +90,6 @@ print "Total Stop Words : %d" % (STOP_df['count'].sum())
 
 # Write table to Excel File
 BOW_df.to_excel(excel_writer="bow.xlsx")
+# BOW_df.to_excel(excel_writer="part.xlsx")
+# BOW_df.to_csv(path_or_buf="bb.csv")
 STOP_df.to_excel(excel_writer="stop.xlsx")
