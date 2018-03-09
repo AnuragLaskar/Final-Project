@@ -9,13 +9,13 @@ from progressbar import ProgressBar
 pbar = ProgressBar()
 
 # read stop word from data and add to stop_words list
-with open("./Data/Classifier/stop-word.txt") as f:
+with open("../Data/Classifier/stop-word.txt") as f:
     stop_words = f.readlines()
 stop_words = [x.strip() for x in stop_words]
 
 # Read test data
 # train_df = pd.read_csv(filepath_or_buffer="./Data/Training/full_training_dataset.csv",header=None)
-train_df = pd.read_csv(filepath_or_buffer="./Data/Training/train.csv",header=None)
+train_df = pd.read_csv(filepath_or_buffer="../Data/Training/train.csv",header=None)
 
 # create table (dataframe)
 BOW_df = pd.DataFrame(columns=['total','positive','negative','prob_w_p','prob_w_n'])

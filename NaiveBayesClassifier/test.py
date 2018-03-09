@@ -6,7 +6,7 @@ from progressbar import ProgressBar
 pbar = ProgressBar()
 
 # read stop word from data and add to stop_words list
-with open("./Data/Classifier/stop-word.txt") as f:
+with open("../Data/Classifier/stop-word.txt") as f:
     stop_words = f.readlines()
 stop_words = [x.strip() for x in stop_words]
 
