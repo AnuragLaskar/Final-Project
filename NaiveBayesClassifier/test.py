@@ -10,7 +10,7 @@ with open("../Data/Classifier/stop-word.txt") as f:
     stop_words = f.readlines()
 stop_words = [x.strip() for x in stop_words]
 
-test_df = pd.read_csv(filepath_or_buffer="./Data/Training/test.csv",header=None)
+test_df = pd.read_csv(filepath_or_buffer="../Data/Training/test.csv",header=None)
 df = pd.read_excel("train_result.xlsx")
 
 result = pd.DataFrame(columns=['Text','Sentiment_pre','Sentiment_cal','Same'])
