@@ -1,3 +1,4 @@
+from __future__ import division
 import numpy as np
 import pandas as pd
 import preprocess as PP
@@ -6,6 +7,9 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 
 df = pd.read_csv(filepath_or_buffer="../Data/Training/training_dataset.csv",names=['senti','text'])
+
+df.loc[df["senti"]=='positive',"senti",]=1
+df.loc[df["senti"]=='negative',"senti",]=0
 
 df_x = df['text']
 df_y = df['senti']
@@ -22,14 +26,22 @@ x_traincv = cv.fit_transform(x_train)
 a=x_traincv.toarray()
 # cv.inverse_transform(a[0])
 
+y_train=y_train.astype('int')
 
 x_testcv=cv.transform(x_test)
 
 clf = svm.SVC(kernel='linear',C=1.0)
 clf.fit(x_traincv,y_train)
 
+predictions=clf.predict(x_testcv)
 
+a=np.array(y_test)
 
+count=0
 
+for i in range (len(predictions)):
+    if predictions[i]==a[i]:
+        count=count+1
 
-
+acc = count/len(predictions)
+print "Accuracy : %f " % acc
