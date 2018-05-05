@@ -3,11 +3,8 @@ import nltk.classify.util
 from nltk.classify import MaxentClassifier
 import csv
 import random
-from nltk.corpus import stopwords
 import itertools
-from nltk.collocations import BigramCollocationFinder
-from nltk.metrics import BigramAssocMeasures
-from nltk import precision , recall , f_measure
+
 import pandas as pd
 import preprocess as PP
  
@@ -90,13 +87,15 @@ def evaluate_classifier(featx):
         
         cv_count += 1
 
-    print classi.classify(featx("text".split(" ")))
     print '---------------------------------------'
     print '(' + classifierName + ')'
     print '---------------------------------------'
     print 'accuracy:', sum(accuracy) / n
     print ''
 
-
+print ''
+print 'With Stop Words'
+evaluate_classifier(word_feats)
     
+print 'Without Stop Words'
 evaluate_classifier(stopword_filtered_word_feats)
