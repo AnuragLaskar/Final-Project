@@ -72,7 +72,6 @@ def evaluate_classifier(featx):
     
         classifierName = 'Maximum Entropy'
         classifier = MaxentClassifier.train(training_this_round, 'IIS', trace=0, encoding=None, labels=None, gaussian_prior_sigma=0, max_iter = 1)
-        classi = classifier
                 
         refsets = collections.defaultdict(set)
         testsets = collections.defaultdict(set)
