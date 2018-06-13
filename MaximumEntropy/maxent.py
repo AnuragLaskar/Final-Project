@@ -64,7 +64,6 @@ def evaluate_classifier(featx):
     
     subset_size = len(trainfeats) / n
     accuracy = []
-    classi = None
     cv_count = 1
     for i in range(n):        
         testing_this_round = trainfeats[i*subset_size:][:subset_size]

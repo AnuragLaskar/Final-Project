@@ -36,7 +36,7 @@ x_testcv=cv.transform(x_test)
 
 print "Traning is In Progress Please Wait"
 
-clf = svm.SVC(kernel='linear',C=1.0)
+clf = svm.SVC(kernel='linear',C=0.5)
 clf.fit(x_traincv,y_train)
 
 predictions=clf.predict(x_testcv)
