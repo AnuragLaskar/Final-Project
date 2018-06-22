@@ -1,9 +1,9 @@
-pip3 install -U scikit-learn
-pip3 install -U pyyaml
-pip3 install -U numpy
-pip3 install -U scipy
-pip3 install pandas
-pip3 install pytest
-pip3 instal nose
-pip3 install progressbar
-pip3 install xlrd
+pip install -U scikit-learn
+pip install -U pyyaml
+pip install -U numpy
+pip install -U scipy
+pip install pandas
+pip install pytest
+pip install nose
+pip install progressbar
+pip install xlrd
