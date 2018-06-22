@@ -48,8 +48,8 @@ for i in pbar(range(total_test)):
     total_token += len(temp_list)
 
     for word in temp_list:
-        # Remove Symbols From Words
-        word = PP.rem_symbol(word)
+        # # Remove Symbols From Words
+        # word = PP.rem_symbol(word)
 
         # all word to lowercase
         word = word.lower()
@@ -58,6 +58,8 @@ for i in pbar(range(total_test)):
             continue
 
         if word not in stop_words:
+            # Remove Symbols From Words
+            word = PP.rem_symbol(word)
             if word not in word_list:
                 # Add Unique word to the word_list Set and increament the count
                 word_list.add(word)

@@ -29,7 +29,7 @@ out = ""
 
 for word in temp_list:
     # Remove Symbols From Words
-    word = PP.rem_symbol(word)
+    # word = PP.rem_symbol(word)
 
     # all word to lowercase
     word = word.lower()
@@ -37,6 +37,7 @@ for word in temp_list:
         continue
     
     if word not in stop_words :
+        word = PP.rem_symbol(word)
         out = out + " " + word
 
 print out

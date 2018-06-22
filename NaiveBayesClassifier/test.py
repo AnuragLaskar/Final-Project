@@ -29,8 +29,8 @@ for i in pbar(range(total_test)) :
     c_text = PP.clean_tweet(text)
     temp_list = c_text.split(" ")
     for word in temp_list:
-        # Remove Symbols From Words
-        word = PP.rem_symbol(word)
+        # # Remove Symbols From Words
+        # word = PP.rem_symbol(word)
 
         # all word to lowercase
         word = word.lower()
@@ -38,6 +38,8 @@ for i in pbar(range(total_test)) :
             continue
         
         if word not in stop_words :
+            # Remove Symbols From Words
+            word = PP.rem_symbol(word)
             if word in df.index :
                 polarity_pos = (0.5) * polarity_pos * (df.loc[word]["prob_w_p"])
                 polarity_neg = (0.5) * polarity_neg * df.loc[word]["prob_w_n"]
