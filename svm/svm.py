@@ -13,7 +13,7 @@ df.loc[df["senti"]=='negative',"senti",]=0
 
 df_x = df['text']
 df_y = df['senti']
-x_train, x_test, y_train, y_test = train_test_split(df_x, df_y, test_size=0.2, random_state=4)
+x_train, x_test, y_train, y_test = train_test_split(df_x, df_y, test_size=0.25, random_state=4)
 
 print "Total Datasets %d" % (len(df))
 print "Total Training Datasets %d" % (len(x_train))

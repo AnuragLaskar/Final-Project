@@ -13,7 +13,7 @@ stop_words = [x.strip() for x in stop_words]
 test_df = pd.read_csv(filepath_or_buffer="../Data/Training/test.csv",header=None)
 df = pd.read_excel("train_result.xlsx")
 
-result = pd.DataFrame(columns=['Text','Sentiment_pre','Sentiment_cal','Same'])
+result = pd.DataFrame(columns=['Text','Sentiment_pre','Sentiment_cal','Same','polarity_pos','polarity_neg'])
 
 
 total_test = len(test_df.index)
@@ -41,9 +41,12 @@ for i in pbar(range(total_test)) :
             # Remove Symbols From Words
             word = PP.rem_symbol(word)
             if word in df.index :
-                polarity_pos = (0.5) * polarity_pos * (df.loc[word]["prob_w_p"])
-                polarity_neg = (0.5) * polarity_neg * df.loc[word]["prob_w_n"]
+                polarity_pos = polarity_pos * (df.loc[word]["prob_w_p"])
+                polarity_neg = polarity_neg * df.loc[word]["prob_w_n"]
 
+
+    polarity_pos =  (0.5) * polarity_pos
+    polarity_neg = (0.5) * polarity_neg
     senti = ""
     if polarity_pos > polarity_neg:
         senti = "Positive"
@@ -52,7 +55,7 @@ for i in pbar(range(total_test)) :
     flag = 0
     if (test_df.loc[i][0].lower())==senti.lower():
         flag = 1
-    result.loc[i] = [text,test_df.loc[i][0],senti,flag]
+    result.loc[i] = [text,test_df.loc[i][0],senti,flag,polarity_pos,polarity_neg]
 
 result.to_excel(excel_writer="test_result.xlsx")
 
