@@ -132,6 +132,7 @@ class Sentiment_Analysis:
         self.Button2.configure(activebackground="#d9d9d9")
         self.Button2.configure(font=font10)
         self.Button2.configure(text='''Analyze''')
+        self.Button2.configure(command = lambda : SM.statement_analyze(self))
 
         self.Output = ScrolledText(self.Frame2)
         self.Output.place(relx=0.52, rely=0.02, relheight=0.97

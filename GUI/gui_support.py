@@ -8,6 +8,7 @@
 
 import sys
 import fetch as WORK
+from textblob import TextBlob
 
 try:
     from Tkinter import *
@@ -38,7 +39,7 @@ def twitter_analyze(Class_Sentiment):
     text = OBJ.in_twitter.get()
     print(text)
 
-    OBJ.Output.insert(END,"Sentiment of : " + text + " on Twitter\n\n")
+    OBJ.Output.insert(END,"\n\nSentiment of : " + text + " on Twitter\n\n")
 
     out = WORK.main(text)
 
@@ -48,7 +49,26 @@ def twitter_analyze(Class_Sentiment):
 
 def statement_analyze(Class_Sentiment):
     OBJ = Class_Sentiment
-    print("statement")
+    text = OBJ.in_text.get()
+    print(text)
+
+    OBJ.Output.insert(END,"\n\nSentiment of : " + text + "\n\n")
+
+    out = line_sentiment(text)
+
+
+    OBJ.Output.insert(END,out)
+
+def line_sentiment(tweet):
+		
+		analysis = TextBlob(tweet)
+		# set sentiment
+		if analysis.sentiment.polarity > 0:
+			return 'Positive'
+		elif analysis.sentiment.polarity == 0:
+			return 'Neutral'
+		else:
+			return 'Negative'
 
 if __name__ == '__main__':
     import project_gui

@@ -37,7 +37,7 @@ def twitter_analyze(Class_Sentiment):
     OBJ = Class_Sentiment
     text = OBJ.in_twitter.get()
     print(text)
-    msg = "Sentiment of Twitter" + text + "\n\n"
+    msg = "\nSentiment of Twitter" + text + "\n\n"
 
     OBJ.Output.configure(text=msg)
 
