@@ -34,6 +34,7 @@ y_train=y_train.astype('int')
 
 x_testcv=cv.transform(x_test)
 
+
 print "Traning is In Progress Please Wait"
 
 clf = svm.SVC(kernel='linear',C=0.5)
@@ -52,3 +53,12 @@ for i in range (len(predictions)):
 acc = count/len(predictions)
 acc*=100
 print "Accuracy : %f %% " % acc
+
+
+result = pd.DataFrame(columns=['Text','Actual','Predicted'])
+
+for i in range(len(y_test)) : 
+    # result.loc[i] = [1,2,3]
+    result.loc[i] = [df.loc[i][1],y_test[y_test.index[i]],predictions[i]]
+
+result.to_excel(excel_writer="test_result.xlsx")
